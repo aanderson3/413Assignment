@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bookstore413.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -18,12 +20,21 @@ namespace Bookstore413
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            //create new service that adds db context and is passed in options
+            services.AddDbContext<BookstoreDbContext>(options =>
+            {
+                //store the connection string to access database
+                options.UseSqlite(Configuration["ConnectionStrings:BookstoreConnection"]);
+            });
+
+            services.AddScoped<IBookstoreRepository, EFBookstoreRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +63,9 @@ namespace Bookstore413
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //pass in app to see if populated
+            SeedData.EnsurePopulated(app);
         }
     }
 }
