@@ -26,7 +26,7 @@ namespace Bookstore413
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            services.AddEntityFrameworkSqlite();
             //create new service that adds db context and is passed in options
             services.AddDbContext<BookstoreDbContext>(options =>
             {
@@ -59,9 +59,13 @@ namespace Bookstore413
 
             app.UseEndpoints(endpoints =>
             {
+                //format page parameters in url to be Books/P#
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    "pagination",
+                    "Books/P{page}",
+                    new { Controller = "Home", action = "Index" });
+
+                endpoints.MapDefaultControllerRoute();
             });
 
             //pass in app to see if populated

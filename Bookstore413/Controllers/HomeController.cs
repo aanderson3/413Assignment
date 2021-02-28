@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Bookstore413.Models;
+using Bookstore413.Models.ViewModels;
 
 namespace Bookstore413.Controllers
 {
@@ -15,6 +16,9 @@ namespace Bookstore413.Controllers
 
         private IBookstoreRepository _repository;
 
+        //set up items per page
+        public int PageSize = 5;
+
         //pass in IBookstoreRepository and assign it to private repo property
         public HomeController(ILogger<HomeController> logger, IBookstoreRepository repository)
         {
@@ -22,10 +26,24 @@ namespace Bookstore413.Controllers
             _repository = repository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            //pass in to the view the Books object
-            return View(_repository.Books);
+            //pass bundle into view specifying page number
+            return View(new BookListViewModel
+            {
+                Books = _repository.Books
+                    .OrderBy(b => b.BookId)
+                    .Skip((page - 1) * PageSize)
+                    .Take(PageSize)
+                ,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalNumItems = _repository.Books.Count()
+                }
+
+            });
         }
 
         public IActionResult Privacy()

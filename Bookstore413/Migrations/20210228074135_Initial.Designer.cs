@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bookstore413.Migrations
 {
     [DbContext(typeof(BookstoreDbContext))]
-    [Migration("20210227163432_Initial")]
+    [Migration("20210228074135_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,9 @@ namespace Bookstore413.Migrations
                     b.Property<string>("ISBN")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Pages")
+                        .HasColumnType("INTEGER");
 
                     b.Property<double>("Price")
                         .HasColumnType("REAL");

@@ -37,6 +37,9 @@ namespace Bookstore413.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Pages")
+                        .HasColumnType("INTEGER");
+
                     b.Property<double>("Price")
                         .HasColumnType("REAL");
 
