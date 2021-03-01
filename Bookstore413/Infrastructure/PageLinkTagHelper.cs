@@ -1,5 +1,6 @@
 ﻿using System;
 using Bookstore413.Models.ViewModels;
+using Bookstore413.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;

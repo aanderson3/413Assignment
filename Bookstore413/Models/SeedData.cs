@@ -142,6 +142,42 @@ namespace Bookstore413.Models
                         Category = "Thrillers",
                         Price = 15.03,
                         Pages = 642
+                    },
+
+                    new Book
+                    {
+                        Title = "Edenbrooke",
+                        Author = "Julianne Donaldson",
+                        Publisher = "Shadow Mountain",
+                        ISBN = "978-1609089467",
+                        Classification = "Fiction",
+                        Category = "Romance",
+                        Price = 13.89,
+                        Pages = 264
+                    },
+
+                    new Book
+                    {
+                        Title = "How Will You Measure Your Life?",
+                        Author = "Clayton Christensen",
+                        Publisher = "Harper Business",
+                        ISBN = "978-0007490547",
+                        Classification = "Non-Fiction",
+                        Category = "Self-Help",
+                        Price = 13.02,
+                        Pages = 240
+                    },
+
+                    new Book
+                    {
+                        Title = "The Selection",
+                        Author = "Kiera Cass",
+                        Publisher = "HarperTeen",
+                        ISBN = "978-1860972844",
+                        Classification = "Fiction",
+                        Category = "Dystopian",
+                        Price = 6.48,
+                        Pages = 352
                     }
 
                 );
