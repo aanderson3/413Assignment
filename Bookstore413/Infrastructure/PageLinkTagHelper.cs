@@ -29,6 +29,12 @@ namespace Bookstore413.Infrastructure
 
         public string PageAction { get; set; }
 
+        public bool PageClassesEnabled { get; set; } = false;
+        public string PageClass { get; set; }
+        public string PageClassNormal { get; set; }
+        public string PageClassSelected { get; set; }
+
+
         //override tag helper method
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -36,11 +42,18 @@ namespace Bookstore413.Infrastructure
 
             TagBuilder result = new TagBuilder("div");
 
-            //loop to create as many a tags as are needed based on total num pages
+            //loop to create as many a tags as are needed based on total num pages, and highlight current page
             for(int i = 1; i <= PageModel.TotalPages; i++)
             {
                 TagBuilder tag = new TagBuilder("a");
                 tag.Attributes["href"] = urlHelper.Action(PageAction, new { page = i });
+
+                if (PageClassesEnabled)
+                {
+                    tag.AddCssClass(PageClass);
+                    tag.AddCssClass(i == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
+                }
+
                 tag.InnerHtml.Append(i.ToString());
 
                 result.InnerHtml.AppendHtml(tag);
