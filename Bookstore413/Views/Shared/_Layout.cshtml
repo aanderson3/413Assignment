@@ -28,7 +28,13 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            <div clss="col-3">
+                <!--this is the view component-->
+                <vc:navigation-menu /> 
+            </div>
+            <div class="col-9">
+                @RenderBody()
+            </div>
         </main>
     </div>
 

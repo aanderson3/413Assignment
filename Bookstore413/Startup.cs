@@ -59,6 +59,21 @@ namespace Bookstore413
 
             app.UseEndpoints(endpoints =>
             {
+                //category and page
+                endpoints.MapControllerRoute("catpage",
+                    "{category}/{page:int}",
+                    new { Controller = "Home", action = "Index" });
+
+                //only page
+                endpoints.MapControllerRoute("page",
+                    "{page:int}",
+                    new { Controller = "Home", action = "Index" });
+
+                //only category
+                endpoints.MapControllerRoute("category",
+                    "{category}",
+                    new { Controller = "Home", action = "Index", page = 1});
+
                 //format page parameters in url to be Books/P#
                 endpoints.MapControllerRoute(
                     "pagination",

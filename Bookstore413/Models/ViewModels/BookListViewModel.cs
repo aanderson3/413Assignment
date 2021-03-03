@@ -9,5 +9,8 @@ namespace Bookstore413.Models.ViewModels
         public IEnumerable<Book> Books { get; set; }
         public PagingInfo PagingInfo { get; set; }
 
+        //we need to know category to filter, we set that in the controller
+        public string CurrentCategory { get; set; }
+
     }
 }

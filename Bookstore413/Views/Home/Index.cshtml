@@ -21,19 +21,10 @@
             </tr>
         </thead>
         <tbody>
-            <!--dynamically display each row in table-->
+            <!--dynamically display each row in table using partial view-->
             @foreach (var x in Model.Books)
             {
-                <tr>
-                    <td>@x.Title</td>
-                    <td>@x.Author</td>
-                    <td>@x.Publisher</td>
-                    <td>@x.ISBN</td>
-                    <td>@x.Classification</td>
-                    <td>@x.Category</td>
-                    <td>$@x.Price</td>
-                    <td>@x.Pages</td>
-                </tr>
+                <partial name="BookSummary" model="x"/>
             }
         </tbody>
     </table>
@@ -42,4 +33,5 @@
 <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true" page-class="btn"
      page-class-normal="btn-outline-dark"
      page-class-selected="btn-primary"
+     page-url-category="@Model.CurrentCategory"
      class="btn-group pull-right m-1"></div>
