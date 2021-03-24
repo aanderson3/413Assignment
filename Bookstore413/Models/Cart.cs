@@ -5,11 +5,11 @@ namespace Bookstore413.Models
 {
     public class Cart
     {
-        //one line of the cart
+        //list of lines of the cart
         public List<CartLine> Lines { get; set; } = new List<CartLine>();
 
         //ability to add line
-        public void AddItem (Book book, int qty)
+        public virtual void AddItem (Book book, int qty)
         {
             CartLine line = Lines
                 .Where(b => b.Book.BookId == book.BookId)
@@ -30,10 +30,10 @@ namespace Bookstore413.Models
         }
 
         //ability to remove line
-        public void RemoveLine(Book book) =>
-            Lines.RemoveAll(x => x.Book.BookId == book.BookId);
+        public virtual void RemoveLine(Book book) =>
+            Lines.RemoveAll(x => x.Book.BookId == book.BookId); //error is somewhere in here? when returning to Buy.cshtml.cs Book is empty
 
-        public void Clear() => Lines.Clear();
+        public virtual void Clear() => Lines.Clear();
 
         //i made this a double but i could have used decimal and converted the price
         public double ComputeTotalSum() =>

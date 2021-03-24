@@ -16,9 +16,11 @@ namespace Bookstore413.Pages
         private IBookstoreRepository repository;
 
         //constructor
-        public BuyModel(IBookstoreRepository repo)
+        public BuyModel(IBookstoreRepository repo, Cart cartService)
         {
             repository = repo;
+            //do i need a cart attribute here like in the book??
+            Cart = cartService;
         }
 
         //properties
@@ -36,21 +38,25 @@ namespace Bookstore413.Pages
         {
             Book book = repository.Books.FirstOrDefault(b => b.BookId == bookId);
 
-            Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
+            //Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
 
             Cart.AddItem(book, 1);
 
-            HttpContext.Session.SetJson("cart", Cart);
+            //HttpContext.Session.SetJson("cart", Cart);
 
             return RedirectToPage(new { returnUrl = returnUrl });
         }
 
         //new method for removing items from cart
-        //public IActionResult OnPostRemove(long BookId, string returnUrl)
-        //{
-        //    Cart.RemoveLine(Cart.Lines.First(cl => cl.Book.BookId == BookId).Book);
+        public IActionResult OnPostRemove(long bookId, string returnUrl)
+        {
+            //Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
 
-        //    return RedirectToPage(new { returnUrl = returnUrl });
-        //}
+            Cart.RemoveLine(Cart.Lines.First(cl => cl.Book.BookId == bookId).Book); //this is the ERROR!!!! it says that instance of cart is null?
+
+            //HttpContext.Session.SetJson("cart", Cart);
+
+            return RedirectToPage(new { returnUrl = returnUrl }); //do i need to define this function??
+        }
     }
 }
